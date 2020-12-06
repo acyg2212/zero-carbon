@@ -51,7 +51,6 @@ const SplashPage = () => {
                 style={customStyles}
                 contentLabel='Modal'>
                 {modal === 'restaurant' ? <RestaurantRanker /> : <TravelCalculator />}
-                <div>Hello Pollution</div>
             </Modal>
             <button onClick={clickHandler} value="travel">Travel Calculator</button>
             <button onClick={clickHandler} value="restaurant">Restaurant Ranker</button>
