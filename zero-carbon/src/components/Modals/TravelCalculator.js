@@ -1,13 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const TravelCalculator = () => {
+    const [footprint, setFoorprint] = useState('')
+    const [efficiency, setEfficiency]= useState('')
+    const [fuel, setFuel] = useState('petrol')
+    const [distance, setDistance] = useState('')
+    const [emission, setEmission]=useState(2.3)
 
+    //(miles traveled / miles per gallon) * (2.3kg petrol OR 2.6kg diesel OR 1.6kg LPG OR 2.2 CPG) CO2
+    const getFuel = e => {
+        setFuel(e.target.value)
+        switch (e.target.value){
+            case 'petrol':
+                setEmission(2.3);
+                break;
+            case 'diesel':
+                setEmission(2.6);
+                break;
+            case 'lpg':
+                setEmission(1.6);
+                break;
+            case 'cpg':
+                setEmission(2.2);
+                break;
+            default:
+                setEmission(2.3)
+        }
+    }
+    const measurement = e => {
+        console.log('hi')
+    }
+
+    const getEfficiency = e => {
+        setEfficiency(e.target.value)
+    }
+
+    const getDistance = e => {
+        setDistance(e.target.value)
+    }
+
+    const calculate_footprint = e => {
+        const carbon = (parseInt(distance)/parseInt(efficiency) * emission)
+       setFoorprint(carbon.toFixed(2))
+    }
     return (
         <div className='calculator'>
             <form>
                 <div className='field'>
                     <label for='distance'>Trip Distance </label>
-                    <input name='distance' id='distance' type='number' />
+                    <input name='distance' id='distance' type='number' onChange={getDistance} />
                 </div>
                 <div className='field'>
                     <label for='vehicle'>Vehicle Type </label>
@@ -19,14 +60,16 @@ const TravelCalculator = () => {
                 </div>
                 <div className='field multi-field'>
                     <label for='efficiency'>Efficiency</label>
-                    <input name='efficiency' type='number' />
-                    <select name='efficiency'>
-                        <option>m/gallon</option>
-                        <option>L/100km</option>
+                    <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency}/>
+                    <select name='efficiency' onChange={measurement}>
+                        <option value='mgallon'>m/gallon</option>
+                        <option value='lkm'>L/100km</option>
                     </select>
-                    <select name='efficiency' id='fuel-type'>
-                        <option>Petrol</option>
-                        <option>Diesel</option>
+                    <select name='efficiency' id='fuel-type' onChange={getFuel} value={fuel} >
+                        <option value='petrol'>Petrol</option>
+                        <option value='diesel'>Diesel</option>
+                        <option value='lpg'>LPG</option>
+                        <option value='cpg'>CPG</option>
                     </select>
                 </div>
                 <span>Or Search Vehicle Efficiency</span>
@@ -78,7 +121,12 @@ const TravelCalculator = () => {
                     </select>
                 </div>
             </form>
-            <button>Calculate Footprint</button>
+            <button onClick={calculate_footprint}>Calculate Footprint</button>
+            <div>
+                <h3>Your Carbon footprint </h3>
+                <input name='footprint' value={footprint} />
+                <label> Litres per Km</label>
+            </div>
         </div>
     )
 }
