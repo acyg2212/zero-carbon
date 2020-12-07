@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 const TravelCalculator = () => {
@@ -5,6 +6,10 @@ const TravelCalculator = () => {
     const [latitude, setLatitude] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [distance, setDistance] = useState(null);
+    const [footprint, setFoorprint] = useState('')
+    const [efficiency, setEfficiency]= useState('')
+    const [fuel, setFuel] = useState('petrol')
+    const [emission, setEmission]=useState(2.3)
 
     const successfulLookup = position => {
         const { latitude, longitude } = position.coords;
@@ -54,13 +59,136 @@ const TravelCalculator = () => {
         }
         searchIt();
     }
+    
+    
+    const getFuel = e => {
+        setFuel(e.target.value)
+        switch (e.target.value){
+            case 'petrol':
+                setEmission(2.3);
+                break;
+            case 'diesel':
+                setEmission(2.6);
+                break;
+            case 'lpg':
+                setEmission(1.6);
+                break;
+            case 'cpg':
+                setEmission(2.2);
+                break;
+            default:
+                setEmission(2.3)
+        }
+    }
+    const measurement = e => {
+        console.log('hi')
+    }
+
+    const getEfficiency = e => {
+        setEfficiency(e.target.value)
+    }
+
+    const getDistance = e => {
+        setDistance(e.target.value)
+    }
+
+    const calculate_footprint = e => {
+        const carbon = (parseInt(distance)/parseInt(efficiency) * emission)
+       setFoorprint(carbon.toFixed(2))
+    }
+    
     return (
         <div>
             <form onSubmit={searchBarFunction}>
                 <input type='text' placeholder="destination" onChange={(e) => setSearchValue(e.target.value)} />
                 <button type="submit">Search</button>
             </form>
+       
+            <div className='calculator'>
+            <form>
+                <div className='field'>
+                    <label for='distance'>Trip Distance </label>
+                    <input name='distance' id='distance' type='number' onChange={getDistance} />
+                </div>
+                <div className='field'>
+                    <label for='vehicle'>Vehicle Type </label>
+                    <select id='vehicle' name='vehicle'>
+                        <option>Car type 1</option>
+                        <option>Car type 2</option>
+                        <option>Car type 3</option>
+                    </select>
+                </div>
+                <div className='field multi-field'>
+                    <label for='efficiency'>Efficiency</label>
+                    <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency}/>
+                    <select name='efficiency' onChange={measurement}>
+                        <option value='mgallon'>m/gallon</option>
+                        <option value='lkm'>L/100km</option>
+                    </select>
+                    <select name='efficiency' id='fuel-type' onChange={getFuel} value={fuel} >
+                        <option value='petrol'>Petrol</option>
+                        <option value='diesel'>Diesel</option>
+                        <option value='lpg'>LPG</option>
+                        <option value='cpg'>CPG</option>
+                    </select>
+                </div>
+                <span>Or Search Vehicle Efficiency</span>
+                <div className='field multi-field'>
+                    <label for='make'>Make </label>
+                    <select name='make' id='make'>
+                        <option>Audi</option>
+                        <option>Acura</option>
+                        <option>Aston Martin</option>
+                        <option>Bentley</option>
+                        <option>BMW</option>
+                        <option>Buick</option>
+                        <option>Cadillac</option>
+                        <option>Chevrolet</option>
+                        <option>Chrysler</option>
+                        <option>Dodge</option>
+                        <option>Ferrari</option>
+                        <option>Ford</option>
+                        <option>GMC</option>
+                        <option>Honda</option>
+                        <option>Hyundai</option>
+                        <option>Infiniti</option>
+                        <option>Isuzu</option>
+                        <option>Jaguar</option>
+                        <option>Jeep</option>
+                        <option>Kia</option>
+                        <option>Lamborghini</option>
+                        <option>Land Rover</option>
+                        <option>Lexus</option>
+                        <option>Lincoln</option>
+                        <option>Lotus</option>
+                        <option>Maserati</option>
+                        <option>Mazda</option>
+                        <option>Mecedes-Benz</option>
+                    </select>
+                    <label for='model'>Model </label>
+                    <select name='model' id='model' >
+                        <option>Model 1</option>
+                        <option>Model 2</option>
+                        <option>Model 3</option>
+                    </select>
+                    <label for='year'>Year </label>
+                    <select name='year' id='name'>
+                        <option>2005</option>
+                        <option>2006</option>
+                        <option>2007</option>
+                        <option>2008</option>
+                        <option>2009</option>
+                    </select>
+                </div>
+            </form>
+            <button onClick={calculate_footprint}>Calculate Footprint</button>
+            <div>
+                <h3>Your Carbon footprint </h3>
+                <input name='footprint' value={footprint} />
+                <label> Litres per Km</label>
+            </div>
             <div>{distance}</div>
+
         </div>
     )
 }
