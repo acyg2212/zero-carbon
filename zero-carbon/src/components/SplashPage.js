@@ -52,15 +52,27 @@ const SplashPage = () => {
                 contentLabel='Modal'>
                 {modal === 'restaurant' ? <RestaurantRanker /> : <TravelCalculator />}
             </Modal>
-            <button onClick={clickHandler} value="travel">Travel Calculator</button>
-            <button onClick={clickHandler} value="restaurant">Restaurant Ranker</button>
-            <h3>Help Our Planet</h3>
-            <Carousel breakPoints={breakPoints}>
-                <div>First</div>
-                <div>Second</div>
-                <div>Third</div>
+            <div className="introduction-div">
+                <h2>Help Our Planet</h2>
+                <h3>About Zero-Carbon</h3>
+                <p>We are a couple of environmentally concious individuals that had
+                no idea where to begin. We created this application so you can see what
+                your carbon footprint is and things you can do to counter your own footprint.
+            </p>
+                <div className="button-div">
+                    <button onClick={clickHandler} value="travel">Travel Calculator</button>
+                    <button onClick={clickHandler} value="restaurant">Restaurant Ranker</button>
+                </div>
 
-            </Carousel>
+                <div className="carousel-div">
+                    <Carousel breakPoints={breakPoints}>
+                        <div>First</div>
+                        <div>Second</div>
+                        <div>Third</div>
+
+                    </Carousel>
+                </div>
+            </div>
         </div>
     )
 
