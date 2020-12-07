@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 const dotenv = require("dotenv");
 const env = dotenv.config()
-console.log(env)
+
 const TravelCalculator = () => {
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
@@ -13,7 +13,7 @@ const TravelCalculator = () => {
     const [fuel, setFuel] = useState('petrol')
     const [emission, setEmission] = useState(2.3)
 
-    const REACT_APP_API_KEY = 1
+
 
     const successfulLookup = position => {
         const { latitude, longitude } = position.coords;
@@ -37,7 +37,7 @@ const TravelCalculator = () => {
 
         async function searchIt() {
 
-            const response = await fetch(`http://dev.virtualearth.net/REST/v1/Locations?query=${searchURI}&key=${REACT_APP_API_KEY}`)
+            const response = await fetch(`http://dev.virtualearth.net/REST/v1/Locations?query=${searchURI}&key=${process.env.REACT_APP_API_KEY}`)
             const responseData = await response.json();
             if (!response.ok) {
                 console.error("ERROR")
@@ -48,7 +48,7 @@ const TravelCalculator = () => {
                 let coordinates = detailedInfo[0].point.coordinates
 
 
-                const res = await fetch(`https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${latitude},${longitude}&destinations=${coordinates[0]},${coordinates[1]}&travelMode=driving&key=${REACT_APP_API_KEY}`)
+                const res = await fetch(`https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${latitude},${longitude}&destinations=${coordinates[0]},${coordinates[1]}&travelMode=driving&key=${process.env.REACT_APP_API_KEY}`)
                 if (!res.ok) {
                     console.error("ERROR")
                 } else {
@@ -112,7 +112,7 @@ const TravelCalculator = () => {
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
-                        <input name='distance' id='distance' type='number' onChange={getDistance} />
+                        <input name='distance' id='distance' type='number' value={distance} />
                     </div>
                     <div className='field'>
                         <label for='vehicle'>Vehicle Type </label>
