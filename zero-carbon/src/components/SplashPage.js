@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import Carousel from 'react-elastic-carousel'
 import TravelCalculator from './Modals/TravelCalculator';
-import RestaurantRanker from './Modals/RestaurantRanker';
+import FoodRanker from './Modals/FoodRanker';
 
 const customStyles = {
     content: {
@@ -50,7 +50,7 @@ const SplashPage = () => {
                 onRequestClose={handleClose}
                 style={customStyles}
                 contentLabel='Modal'>
-                {modal === 'restaurant' ? <RestaurantRanker /> : <TravelCalculator />}
+                {modal === 'food' ? <FoodRanker /> : <TravelCalculator />}
             </Modal>
             <div className="introduction-div">
                 <h2>Help Our Planet</h2>
@@ -61,7 +61,7 @@ const SplashPage = () => {
             </p>
                 <div className="button-div">
                     <button onClick={clickHandler} value="travel">Travel Calculator</button>
-                    <button onClick={clickHandler} value="restaurant">Restaurant Ranker</button>
+                    <button onClick={clickHandler} value="food">Food Ranker</button>
                 </div>
 
                 <div className="carousel-div">

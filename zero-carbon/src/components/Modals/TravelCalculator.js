@@ -131,7 +131,7 @@ const TravelCalculator = () => {
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
-                        <input name='distance' id='distance' type='number' value={distance} />
+                        <input name='distance' id='distance' type='number' value={distance} onChange={getDistance} />
                     </div>
                     {/* <div className='field'>
                         <label for='vehicle'>Vehicle Type </label>
