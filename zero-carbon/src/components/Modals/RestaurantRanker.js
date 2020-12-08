@@ -9,36 +9,6 @@ const RestaurantRanker = () => {
     const [newOptions, setNewOptions] = useState(options)
     const [footprint, setFootprint] = useState(0)
 
-    const greenHouseGasEmissions = [
-        { name: "beef", value: 60 },
-        { name: "lamb/mutton", value: 24 },
-        { name: "cheese", value: 21 },
-        { name: "chocolate", value: 19 },
-        { name: "coffee", value: 17 },
-        { name: "prawns", value: 12 },
-        { name: "palm oil", value: 8 },
-        { name: "pig", value: 7 },
-        { name: "poultry", value: 6 },
-        { name: "olive oil", value: 6 },
-        { name: "fish(farmed)", value: 5 },
-        { name: "eggs", value: 4.5 },
-        { name: "rice", value: 4 },
-        { name: "fish(wild)", value: 3 },
-        { name: "milk", value: 3 },
-        { name: "cane sugar", value: 3 },
-        { name: "ground nuts", value: 2.5 },
-        { name: "wheat/rye", value: 1.4 },
-        { name: "tomatoes", value: 1.4 },
-        { name: "corn", value: 1 },
-        { name: "nuts", value: .3 },
-        { name: "cassava", value: 1 },
-        { name: "soymilk", value: .9 },
-        { name: "peas", value: .9 },
-        { name: "bananas", value: .7 },
-        { name: "root vegetable", value: .4 },
-        { name: "apples", value: .4 },
-        { name: "citrus fruit", value: .3 },
-    ]
 
     const addItem = e => {
 
@@ -56,15 +26,15 @@ const RestaurantRanker = () => {
 
         newOptions.forEach(option => {
             const addOption = document.createElement("option")
-            addOption.value = option.meat
-            addOption.innerHTML = option.meat
+            addOption.value = option.name
+            addOption.innerHTML = option.name
             addSelect.appendChild(addOption)
         })
         setCount(count + 1)
     }
 
     useEffect(() => {
-        setSorted(greenHouseGasEmissions.sort(function (a, b) {
+        setSorted(options.sort(function (a, b) {
             return a.value - b.value
         }))
         console.log(sorted)
@@ -79,7 +49,7 @@ const RestaurantRanker = () => {
 
         const temp = []
         options.forEach(item => {
-            if (!selected.includes(item.meat)) {
+            if (!selected.includes(item.name)) {
                 temp.push(item)
             }
         })
@@ -89,8 +59,8 @@ const RestaurantRanker = () => {
         selected.forEach(item => {
 
             options.forEach((option) => {
-                if (option.meat == item) {
-                    total += option.emission
+                if (option.name == item) {
+                    total += option.value
                 }
             })
 
@@ -128,7 +98,7 @@ const RestaurantRanker = () => {
                 <select onChange={editOptions} className='selection' name='item1' id='item1'>
                     <option>Add item</option>
                     {options.map((option, idx) => (
-                        <option key={idx}>{option.meat}</option>
+                        <option key={idx}>{option.name}</option>
                     ))}
                 </select>
             </div>

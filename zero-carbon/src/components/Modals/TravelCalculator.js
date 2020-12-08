@@ -27,7 +27,10 @@ const TravelCalculator = () => {
                 let newArray = Array.prototype.map.call(first, (function (node) {
                     return node
                 }))
-                // setModels(first)
+                let test = newArray.map(node => {
+                    return node.childNodes[0].innerHTML
+                })
+                console.log(test)
                 console.log(newArray[0].childNodes[0].innerHTML)
             }
         }
