@@ -13,7 +13,8 @@ const TravelCalculator = () => {
     const [emission, setEmission] = useState(2.3)
     const [year, setYear] = useState(2006);
     const [make, setMake] = useState("Audi");
-    const [models, setModels] = useState(null);
+    const [models, setModels] = useState([]);
+    const [model, setModel] = useState(null)
 
     useEffect(() => {
         async function getModel() {
@@ -27,15 +28,49 @@ const TravelCalculator = () => {
                 let newArray = Array.prototype.map.call(first, (function (node) {
                     return node
                 }))
-                let test = newArray.map(node => {
+                let models = newArray.map(node => {
                     return node.childNodes[0].innerHTML
                 })
-                console.log(test)
-                console.log(newArray[0].childNodes[0].innerHTML)
+                setModels(models)
+
             }
         }
         getModel();
-    })
+    }, [make])
+
+    useEffect(() => {
+        if (model) {
+            console.log(models)
+            async function getModel() {
+                const response = await fetch(`https://www.fueleconomy.gov/ws/rest/ympg/shared/vehicles?make=${make}&model=${model}`)
+                const responseData = await response.text()
+                if (!response.ok) {
+                    console.error(response)
+                } else {
+                    console.log(responseData)
+                    let data = new window.DOMParser().parseFromString(responseData, "text/xml")
+                    try {
+                        let first = data.getElementsByTagName("vehicles")[0].childNodes[0].childNodes[42].innerHTML
+                        setEfficiency(first)
+                    } catch (e) {
+                        console.error(e)
+                    }
+
+                    // let newArray = Array.prototype.map.call(first, (function (node) {
+                    //     return node
+                    // }))
+                    // console.log(newArray)
+                    // let models = newArray.map(node => {
+                    //     return node.childNodes[0].innerHTML
+                    // })
+                    // setModels(models)
+                    // console.log(newArray[0].childNodes[0].innerHTML)
+                }
+
+            }
+            getModel();
+        }
+    }, [model])
 
     const successfulLookup = position => {
         const { latitude, longitude } = position.coords;
@@ -207,16 +242,13 @@ const TravelCalculator = () => {
                             <option>Lotus</option>
                             <option>Maserati</option>
                             <option>Mazda</option>
-                            <option>Mecedes-Benz</option>
+                            <option>Mercedes-Benz</option>
                         </select>
                         <label for='model'>Model </label>
-                        <select name='model' id='model' >
-                            {/* {models ? Array.prototype.map.call(model.childNodes, (function(node){
-                                <option>{model}</option>
-                            }) : ""} */}
-                            <option>Model 1</option>
-                            <option>Model 2</option>
-                            <option>Model 3</option>
+                        <select name='model' id='model' onChange={e => setModel(e.target.value)}>
+                            {models.length > 0 ? models.map(model => {
+                                return <option>{model}</option>
+                            }) : ""}
                         </select>
                     </div>
                 </form>
