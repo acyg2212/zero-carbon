@@ -10,3 +10,21 @@
     bottom:10px;
     width:90%
 }
+
+.food-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.best-worst-div{
+    display: flex;
+    
+}
+
+h4{
+    text-align: center;
+}
+
+
+
