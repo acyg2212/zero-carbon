@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 const dotenv = require("dotenv");
 const env = dotenv.config()
 
@@ -11,8 +11,28 @@ const TravelCalculator = () => {
     const [efficiency, setEfficiency] = useState('')
     const [fuel, setFuel] = useState('petrol')
     const [emission, setEmission] = useState(2.3)
+    const [year, setYear] = useState(2006);
+    const [make, setMake] = useState("Audi");
+    const [models, setModels] = useState(null);
 
-
+    useEffect(() => {
+        async function getModel() {
+            const response = await fetch(`https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=${year}&make=${make}`)
+            const responseData = await response.text()
+            if (!response.ok) {
+                console.error(response)
+            } else {
+                let data = new window.DOMParser().parseFromString(responseData, "text/xml")
+                let first = data.getElementsByTagName("menuItems")[0].childNodes
+                let newArray = Array.prototype.map.call(first, (function (node) {
+                    return node
+                }))
+                // setModels(first)
+                console.log(newArray[0].childNodes[0].innerHTML)
+            }
+        }
+        getModel();
+    })
 
     const successfulLookup = position => {
         const { latitude, longitude } = position.coords;
@@ -99,7 +119,7 @@ const TravelCalculator = () => {
         const carbon = (parseInt(distance) / parseInt(efficiency) * emission)
         setFoorprint(carbon.toFixed(2))
     }
-
+    console.log(year);
     return (
         <div>
             <form onSubmit={searchBarFunction}>
@@ -113,14 +133,14 @@ const TravelCalculator = () => {
                         <label for='distance'>Trip Distance </label>
                         <input name='distance' id='distance' type='number' value={distance} />
                     </div>
-                    <div className='field'>
+                    {/* <div className='field'>
                         <label for='vehicle'>Vehicle Type </label>
                         <select id='vehicle' name='vehicle'>
                             <option>Car type 1</option>
                             <option>Car type 2</option>
                             <option>Car type 3</option>
                         </select>
-                    </div>
+                    </div> */}
                     <div className='field multi-field'>
                         <label for='efficiency'>Efficiency</label>
                         <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency} />
@@ -137,8 +157,26 @@ const TravelCalculator = () => {
                     </div>
                     <span>Or Search Vehicle Efficiency</span>
                     <div className='field multi-field'>
+                        <label for='year'>Year </label>
+                        <select name='year' id='name' onChange={e => setYear(e.target.value)}>
+                            <option>2006</option>
+                            <option>2007</option>
+                            <option>2008</option>
+                            <option>2009</option>
+                            <option>2010</option>
+                            <option>2011</option>
+                            <option>2012</option>
+                            <option>2013</option>
+                            <option>2014</option>
+                            <option>2015</option>
+                            <option>2016</option>
+                            <option>2017</option>
+                            <option>2018</option>
+                            <option>2019</option>
+                            <option>2020</option>
+                        </select>
                         <label for='make'>Make </label>
-                        <select name='make' id='make'>
+                        <select name='make' id='make' onChange={e => setMake(e.target.value)}>
                             <option>Audi</option>
                             <option>Acura</option>
                             <option>Aston Martin</option>
@@ -170,17 +208,12 @@ const TravelCalculator = () => {
                         </select>
                         <label for='model'>Model </label>
                         <select name='model' id='model' >
+                            {/* {models ? Array.prototype.map.call(model.childNodes, (function(node){
+                                <option>{model}</option>
+                            }) : ""} */}
                             <option>Model 1</option>
                             <option>Model 2</option>
                             <option>Model 3</option>
-                        </select>
-                        <label for='year'>Year </label>
-                        <select name='year' id='name'>
-                            <option>2005</option>
-                            <option>2006</option>
-                            <option>2007</option>
-                            <option>2008</option>
-                            <option>2009</option>
                         </select>
                     </div>
                 </form>
