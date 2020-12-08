@@ -119,7 +119,6 @@ const TravelCalculator = () => {
         const carbon = (parseInt(distance) / parseInt(efficiency) * emission)
         setFoorprint(carbon.toFixed(2))
     }
-    console.log(year);
     return (
         <div>
             <form onSubmit={searchBarFunction}>
@@ -131,7 +130,8 @@ const TravelCalculator = () => {
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
-                        <input name='distance' id='distance' type='number' value={distance} />
+                        <input name='distance' id='distance' type='number' value={distance} onChange={getDistance} />
+                         Miles
                     </div>
                     {/* <div className='field'>
                         <label for='vehicle'>Vehicle Type </label>
@@ -223,7 +223,7 @@ const TravelCalculator = () => {
                     <input name='footprint' value={footprint} />
                     <label> Litres per Km</label>
                 </div>
-                <div>{distance}</div>
+                {/* <div>{distance}</div> */}
 
             </div>
         </div>
