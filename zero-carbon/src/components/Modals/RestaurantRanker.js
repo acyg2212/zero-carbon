@@ -3,7 +3,7 @@ import { options } from '../data/Options'
 
 console.log(options)
 
-const RestaurantRanker = () => {
+const RestaurantRanker = (props) => {
     const [count, setCount] = useState(2)
     const [sorted, setSorted] = useState([])
     const [newOptions, setNewOptions] = useState(options)
@@ -69,7 +69,8 @@ const RestaurantRanker = () => {
     }
 
     return (
-        <div>
+        <div className="food-container">
+            <button id="close-button" onClick={props.handleClose}>X</button>
             <h3>What's in your meal? </h3>
             <div className="best-worst-div">
                 <div className="ranker-div">
@@ -93,16 +94,18 @@ const RestaurantRanker = () => {
                         </ol> : ""}
                 </div>
             </div>
-            <label for='item1'>Item 1</label>
-            <div className='addSelect'>
-                <select onChange={editOptions} className='selection' name='item1' id='item1'>
-                    <option>Add item</option>
-                    {options.map((option, idx) => (
-                        <option key={idx}>{option.name}</option>
-                    ))}
-                </select>
+            <div className="add-item-div">
+                {/* <label for='item1'>Item 1</label> */}
+                <div className='addSelect'>
+                    <select onChange={editOptions} className='selection' name='item1' id='item1'>
+                        <option>Add item</option>
+                        {options.map((option, idx) => (
+                            <option key={idx}>{option.name}</option>
+                        ))}
+                    </select>
+                </div>
+                <button className="add-button" onClick={addItem}><h3>+</h3></button>
             </div>
-            <button onClick={addItem}><h3>Add item</h3></button>
             <div>
                 <h3>Carbon Footprint for this meal </h3>
                 <input for='emission' value={footprint} />

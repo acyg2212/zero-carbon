@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 const dotenv = require("dotenv");
 const env = dotenv.config()
 
-const TravelCalculator = () => {
+const TravelCalculator = (props) => {
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
     const [searchValue, setSearchValue] = useState('');
@@ -159,16 +159,16 @@ const TravelCalculator = () => {
     }
     return (
         <div className="travel-container">
-            <button id="close-button">X</button>
-            <h3>Carbon Travel Calculator</h3>
+            <button id="close-button" onClick={props.handleClose}>X</button>
+            <h1>Carbon Travel Calculator</h1>
             <div className="step-1-div">
                 <div>
-                    <h1>Step 1</h1>
+                    <h3>Step 1</h3>
                 </div>
                 <form onSubmit={searchBarFunction}>
                     <div className="search-bar-div">
-                        <input type='text' name="search" placeholder="🔍 Destination" onChange={(e) => setSearchValue(e.target.value)} />
-                        <button type="submit">Search</button>
+                        <input type='text' name="search" className="search-input" placeholder="🔍 Destination" onChange={(e) => setSearchValue(e.target.value)} />
+                        <button className="form-button" type="submit">Search</button>
                     </div>
                 </form>
             </div>
@@ -176,7 +176,7 @@ const TravelCalculator = () => {
             {/* <div className='calculator'> */}
 
             <div className="step-2-div">
-                <h1>Step 2</h1>
+                <h3>Step 2</h3>
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
@@ -197,7 +197,7 @@ const TravelCalculator = () => {
                             <option value='cpg'>CPG</option>
                         </select>
                     </div>
-                    <span>Or Search Vehicle Efficiency</span>
+                    <span className="travel-calculator-span">Or Search Vehicle Efficiency:</span>
                     <div className='field multi-field'>
                         <label for='year'>Year </label>
                         <select name='year' id='name' onChange={e => setYear(e.target.value)}>
@@ -255,11 +255,11 @@ const TravelCalculator = () => {
                             }) : ""}
                         </select>
                     </div>
-                    <button onClick={calculate_footprint}>Calculate Footprint</button>
+                    <button className="form-button" onClick={calculate_footprint}>Calculate Footprint</button>
                 </form>
             </div>
             <div className="step-3-div">
-                <h1>Step 3</h1>
+                <h3>Step 3</h3>
                 <div className="carbon-results">
                     <h3>Your Carbon footprint </h3>
                     <input name='footprint' value={footprint} />

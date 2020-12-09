@@ -13,7 +13,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        width: '610px',
+        width: '60%',
         height: '600px',
         borderRadius: "30px",
         display: "flex",
@@ -52,14 +52,14 @@ const SplashPage = () => {
                 onRequestClose={handleClose}
                 style={customStyles}
                 contentLabel='Modal'>
-                {modal === 'food' ? <RestaurantRanker /> : <TravelCalculator />}
+                {modal === 'food' ? <RestaurantRanker handleClose={handleClose} /> : <TravelCalculator handleClose={handleClose} />}
             </Modal>
             <div className="introduction-div">
                 <div className="header-div">
                     <h2 className="splash-page-h2-div">Help Our Planet</h2>
                     <h3 className="splash-page-h3-div">How big of a footprint are you leaving behind?</h3>
                 </div>
-                <h3>About Zero Carbon</h3>
+                <h3 className="about-header">About Zero Carbon</h3>
                 <p className="splash-page-p">Climate change can be overwhelming. The science is complex,
                 and when it comes to future impacts, there are still a lot
                 of unknowns. While real solutions will require action on a
