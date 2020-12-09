@@ -159,26 +159,30 @@ const TravelCalculator = () => {
     }
     return (
         <div className="travel-container">
-            <form onSubmit={searchBarFunction}>
-                <input type='text' placeholder="destination" onChange={(e) => setSearchValue(e.target.value)} />
-                <button type="submit">Search</button>
-            </form>
+            <button id="close-button">X</button>
+            <h3>Carbon Travel Calculator</h3>
+            <div className="step-1-div">
+                <div>
+                    <h1>Step 1</h1>
+                </div>
+                <form onSubmit={searchBarFunction}>
+                    <div className="search-bar-div">
+                        <input type='text' name="search" placeholder="🔍 Destination" onChange={(e) => setSearchValue(e.target.value)} />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
 
-            <div className='calculator'>
+            {/* <div className='calculator'> */}
+
+            <div className="step-2-div">
+                <h1>Step 2</h1>
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
                         <input name='distance' id='distance' type='number' value={distance} onChange={getDistance} />
                          Miles
-                    </div>
-                    {/* <div className='field'>
-                        <label for='vehicle'>Vehicle Type </label>
-                        <select id='vehicle' name='vehicle'>
-                            <option>Car type 1</option>
-                            <option>Car type 2</option>
-                            <option>Car type 3</option>
-                        </select>
-                    </div> */}
+                        </div>
                     <div className='field multi-field'>
                         <label for='efficiency'>Efficiency</label>
                         <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency} />
@@ -251,16 +255,20 @@ const TravelCalculator = () => {
                             }) : ""}
                         </select>
                     </div>
+                    <button onClick={calculate_footprint}>Calculate Footprint</button>
                 </form>
-                <button onClick={calculate_footprint}>Calculate Footprint</button>
-                <div>
+            </div>
+            <div className="step-3-div">
+                <h1>Step 3</h1>
+                <div className="carbon-results">
                     <h3>Your Carbon footprint </h3>
                     <input name='footprint' value={footprint} />
                     <label> Litres per Km</label>
                 </div>
-                {/* <div>{distance}</div> */}
-
             </div>
+            {/* <div>{distance}</div> */}
+
+            {/* </div> */}
         </div>
     )
 }

@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import Carousel from 'react-elastic-carousel'
 import TravelCalculator from './Modals/TravelCalculator';
 import RestaurantRanker from './Modals/RestaurantRanker';
-import carbonFootprint from '../assets/carbon-footprint.jpg';
+
 
 const customStyles = {
     content: {
@@ -29,7 +29,8 @@ const SplashPage = () => {
     const [show, setShow] = useState(false)
 
     const clickHandler = (e) => {
-        setModal(e.target.value)
+
+        setModal(e.target.id)
         setShow("true")
     }
 
@@ -51,7 +52,7 @@ const SplashPage = () => {
                 onRequestClose={handleClose}
                 style={customStyles}
                 contentLabel='Modal'>
-                {modal === 'restaurant' ? <RestaurantRanker /> : <TravelCalculator />}
+                {modal === 'food' ? <RestaurantRanker /> : <TravelCalculator />}
             </Modal>
             <div className="introduction-div">
                 <div className="header-div">
@@ -69,8 +70,12 @@ const SplashPage = () => {
                 your carbon footprint is and things you can do to counter your own footprint.
             </p>
                 <div className="button-div">
-                    <button className="splash-page-button" onClick={clickHandler} value="travel">Travel Calculator</button>
-                    <button className="splash-page-button" onClick={clickHandler} value="restaurant">Restaurant Ranker</button>
+                    <div>
+                        <button className="splash-page-button" onClick={clickHandler} id="travel"> <i class="fas fa-smog"></i> <p>Travel Calculator</p></button>
+                    </div>
+                    <div>
+                        <button className="splash-page-button" onClick={clickHandler} id="food"> <i id="food" class="fas fa-hamburger"></i><p id="food">Food Ranker</p></button>
+                    </div>
                 </div>
 
                 <div className="carousel-div">
@@ -82,7 +87,7 @@ const SplashPage = () => {
                     </Carousel>
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 }
