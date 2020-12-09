@@ -158,7 +158,7 @@ const TravelCalculator = () => {
         setFoorprint(carbon.toFixed(2))
     }
     return (
-        <div>
+        <div className="travel-container">
             <form onSubmit={searchBarFunction}>
                 <input type='text' placeholder="destination" onChange={(e) => setSearchValue(e.target.value)} />
                 <button type="submit">Search</button>
