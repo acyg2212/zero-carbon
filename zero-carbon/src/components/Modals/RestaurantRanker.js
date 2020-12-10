@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NewCarousel from '../Carousel';
 import { options } from '../data/Options'
 
-console.log(options)
+
 
 const RestaurantRanker = (props) => {
     const [count, setCount] = useState(2)
@@ -38,7 +38,7 @@ const RestaurantRanker = (props) => {
         setSorted(options.sort(function (a, b) {
             return a.value - b.value
         }))
-        console.log(sorted)
+
     }, [])
 
     const editOptions = e => {

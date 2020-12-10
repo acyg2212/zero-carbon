@@ -15,12 +15,13 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         width: '70%',
-        height: 'auto',
+        height: '70vh',
         borderRadius: "30px",
         display: "flex",
         flexDirection: "column",
         // justifyContent: "center",
-        marginTop: "40px"
+        marginTop: "40px",
+
     }
 };
 

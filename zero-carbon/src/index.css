@@ -137,25 +137,31 @@ form{
 .travel-steps{
     font-size: 30px;
     margin-bottom: 5px;
+    width:35%;
+}
+
+.step-div{
+    width:45%;
 }
 
 .step-1-div{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     width:90%
 }
 
 .step-2-div{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     width:90%;
 }
 
+
 .step-3-div{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     width:90%
 }
@@ -297,3 +303,4 @@ footer{
     margin-left:2px;
     margin-right:2px;
 }
+

@@ -41,14 +41,12 @@ const TravelCalculator = (props) => {
 
     useEffect(() => {
         if (model) {
-            console.log(models)
             async function getModel() {
                 const response = await fetch(`https://www.fueleconomy.gov/ws/rest/ympg/shared/vehicles?make=${make}&model=${model}`)
                 const responseData = await response.text()
                 if (!response.ok) {
                     console.error(response)
                 } else {
-                    console.log(responseData)
                     let data = new window.DOMParser().parseFromString(responseData, "text/xml")
                     try {
                         let first = data.getElementsByTagName("vehicles")[0].childNodes[0].childNodes[42].innerHTML
@@ -95,7 +93,7 @@ const TravelCalculator = (props) => {
 
         async function searchIt() {
 
-            const response = await fetch(`http://dev.virtualearth.net/REST/v1/Locations?query=${searchURI}&key=${process.env.REACT_APP_API_KEY}`)
+            const response = await fetch(`https://dev.virtualearth.net/REST/v1/Locations?query=${searchURI}&key=${process.env.REACT_APP_API_KEY}`)
             const responseData = await response.json();
             if (!response.ok) {
                 console.error("ERROR")
@@ -166,112 +164,125 @@ const TravelCalculator = (props) => {
         <div className="travel-container">
             <button id="close-button" onClick={props.handleClose}>X</button>
             <h1>Carbon Travel Calculator</h1>
-            <div className="step-1-div">
+            {/* <div className="step-1-div">
                 <div>
                     <h3 className="travel-steps">Step 1</h3>
-                    <p className="travel-calculator-instructions">(either search or enter travel distance)</p>
-                </div>
-                <form onSubmit={searchBarFunction}>
+                    <p className="travel-calculator-instructions">(enter travel distance)</p>
+                </div> */}
+            {/* <form onSubmit={searchBarFunction}>
                     <div className="search-bar-div">
                         <input type='text' name="search" className="search-input" placeholder="🔍 Destination" onChange={(e) => setSearchValue(e.target.value)} />
                         <button className="form-button" type="submit">Search</button>
                     </div>
-                </form>
-            </div>
+                </form> */}
+            {/* </div> */}
 
             {/* <div className='calculator'> */}
 
-            <div className="step-2-div">
-                <div>
-                    <h3 className="travel-steps">Step 2</h3>
-                    <p className="travel-calculator-instructions">(enter fuel efficiency or search for your car)</p>
-                </div>
+            <div >
                 <form>
-                    <div className='field'>
-                        <label for='distance'>Trip Distance </label>
-                        <input name='distance' id='distance' type='number' value={distance} onChange={getDistance} />
+                    <div className="step-1-div">
+                        <div className="step-div">
+                            <h3 className="travel-steps">Step 1</h3>
+                            <p className="travel-calculator-instructions">(enter travel distance)</p>
+                        </div>
+                        <div className='field'>
+                            <label for='distance'>Trip Distance </label>
+                            <input name='distance' id='distance' type='number' value={distance} onChange={getDistance} />
                          Miles
                         </div>
-                    <div className='field multi-field'>
-                        <label for='efficiency'>Efficiency</label>
-                        <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency} />
-                        <select name='efficiency' onChange={measurement}>
-                            <option value='mgallon'>m/gallon</option>
-                        </select>
-                        <select name='efficiency' id='fuel-type' onChange={getFuel} value={fuel} >
-                            <option value='petrol'>Petrol</option>
-                            <option value='diesel'>Diesel</option>
-                            <option value='lpg'>LPG</option>
-                            <option value='cpg'>CPG</option>
-                        </select>
                     </div>
-                    <span className="travel-calculator-span">Or Search Vehicle Efficiency:</span>
-                    <div className='field multi-field'>
-                        <label for='year'>Year </label>
-                        <select name='year' id='name' onChange={e => setYear(e.target.value)}>
-                            <option>2006</option>
-                            <option>2007</option>
-                            <option>2008</option>
-                            <option>2009</option>
-                            <option>2010</option>
-                            <option>2011</option>
-                            <option>2012</option>
-                            <option>2013</option>
-                            <option>2014</option>
-                            <option>2015</option>
-                            <option>2016</option>
-                            <option>2017</option>
-                            <option>2018</option>
-                            <option>2019</option>
-                            <option>2020</option>
-                        </select>
-                        <label for='make'>Make </label>
-                        <select name='make' id='make' onChange={e => setMake(e.target.value)}>
-                            <option>Audi</option>
-                            <option>Acura</option>
-                            <option>Aston Martin</option>
-                            <option>Bentley</option>
-                            <option>BMW</option>
-                            <option>Buick</option>
-                            <option>Cadillac</option>
-                            <option>Chevrolet</option>
-                            <option>Chrysler</option>
-                            <option>Dodge</option>
-                            <option>Ferrari</option>
-                            <option>Ford</option>
-                            <option>GMC</option>
-                            <option>Honda</option>
-                            <option>Hyundai</option>
-                            <option>Infiniti</option>
-                            <option>Isuzu</option>
-                            <option>Jaguar</option>
-                            <option>Jeep</option>
-                            <option>Kia</option>
-                            <option>Lamborghini</option>
-                            <option>Land Rover</option>
-                            <option>Lexus</option>
-                            <option>Lincoln</option>
-                            <option>Lotus</option>
-                            <option>Maserati</option>
-                            <option>Mazda</option>
-                            <option>Mercedes-Benz</option>
-                        </select>
-                        <label for='model'>Model </label>
-                        <select name='model' id='model' onChange={e => setModel(e.target.value)}>
-                            {models.length > 0 ? models.map(model => {
-                                return <option>{model}</option>
-                            }) : ""}
-                        </select>
+                    <div className="step-2-div">
+                        <div className="step-div">
+                            <h3 className="travel-steps">Step 2</h3>
+                            <p className="travel-calculator-instructions">(enter fuel efficiency or search for your car)</p>
+                        </div>
+
+                        <div className='field'>
+                            <div className='field multi-field'>
+                                <label for='efficiency'>Efficiency</label>
+                                <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency} />
+                                <select name='efficiency' onChange={measurement}>
+                                    <option value='mgallon'>m/gallon</option>
+                                </select>
+                                <select name='efficiency' id='fuel-type' onChange={getFuel} value={fuel} >
+                                    <option value='petrol'>Petrol</option>
+                                    <option value='diesel'>Diesel</option>
+                                    <option value='lpg'>LPG</option>
+                                    <option value='cpg'>CPG</option>
+                                </select>
+                            </div>
+                            <span className="travel-calculator-span">Or Search Vehicle Efficiency:</span>
+                            <div className='field multi-field three-field'>
+                                <label for='year'>Year </label>
+                                <select name='year' id='name' onChange={e => setYear(e.target.value)}>
+                                    <option>2006</option>
+                                    <option>2007</option>
+                                    <option>2008</option>
+                                    <option>2009</option>
+                                    <option>2010</option>
+                                    <option>2011</option>
+                                    <option>2012</option>
+                                    <option>2013</option>
+                                    <option>2014</option>
+                                    <option>2015</option>
+                                    <option>2016</option>
+                                    <option>2017</option>
+                                    <option>2018</option>
+                                    <option>2019</option>
+                                    <option>2020</option>
+                                </select>
+                                <label for='make'>Make </label>
+                                <select name='make' id='make' onChange={e => setMake(e.target.value)}>
+                                    <option>Audi</option>
+                                    <option>Acura</option>
+                                    <option>Aston Martin</option>
+                                    <option>Bentley</option>
+                                    <option>BMW</option>
+                                    <option>Buick</option>
+                                    <option>Cadillac</option>
+                                    <option>Chevrolet</option>
+                                    <option>Chrysler</option>
+                                    <option>Dodge</option>
+                                    <option>Ferrari</option>
+                                    <option>Ford</option>
+                                    <option>GMC</option>
+                                    <option>Honda</option>
+                                    <option>Hyundai</option>
+                                    <option>Infiniti</option>
+                                    <option>Isuzu</option>
+                                    <option>Jaguar</option>
+                                    <option>Jeep</option>
+                                    <option>Kia</option>
+                                    <option>Lamborghini</option>
+                                    <option>Land Rover</option>
+                                    <option>Lexus</option>
+                                    <option>Lincoln</option>
+                                    <option>Lotus</option>
+                                    <option>Maserati</option>
+                                    <option>Mazda</option>
+                                    <option>Mercedes-Benz</option>
+                                </select>
+                                <label for='model'>Model </label>
+                                <select name='model' id='model' onChange={e => setModel(e.target.value)}>
+                                    {models.length > 0 ? models.map(model => {
+                                        return <option>{model}</option>
+                                    }) : ""}
+                                </select>
+                            </div>
+
+                        </div>
                     </div>
                     <button className="form-button" onClick={calculate_footprint}>Calculate Footprint</button>
                 </form>
-            </div>
-            <div className="step-3-div">
-                <h3 className="travel-steps">Step 3</h3>
-                <div className="carbon-results">
-                    <h3>Your Carbon footprint </h3>
-                    <input name='footprint' value={footprint} />
-                    <label> Litres per Km</label>
+
+                <div className="step-3-div">
+                    <h3 className="travel-steps">Step 3</h3>
+                    <div className="carbon-results">
+                        <h3>Your Carbon footprint </h3>
+                        <input name='footprint' value={footprint} />
+                        <label> Litres per Km</label>
+                    </div>
                 </div>
             </div>
             <div className="carousel-div hide">
@@ -281,7 +292,7 @@ const TravelCalculator = (props) => {
             {/* <div>{distance}</div> */}
 
             {/* </div> */}
-        </div>
+        </div >
     )
 }
 
