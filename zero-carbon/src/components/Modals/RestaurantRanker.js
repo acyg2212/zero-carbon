@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import NewCarousel from '../Carousel';
 import { options } from '../data/Options'
 
 console.log(options)
@@ -110,6 +111,10 @@ const RestaurantRanker = (props) => {
                 <h3>Carbon Footprint for this meal </h3>
                 <input for='emission' value={footprint} />
                 <label name='emission'>CO2</label>
+            </div>
+            <h2>Offset your carbon footprint with these suggestions</h2>
+            <div className="carousel-div">
+                <NewCarousel />
             </div>
         </div>
     )

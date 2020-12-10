@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NewCarousel from '../Carousel';
 const dotenv = require("dotenv");
 const env = dotenv.config()
 
@@ -154,8 +155,12 @@ const TravelCalculator = (props) => {
     }
 
     const calculate_footprint = e => {
+        e.preventDefault()
         const carbon = (parseInt(distance) / parseInt(efficiency) * emission)
         setFoorprint(carbon.toFixed(2))
+        const carousel = document.getElementsByClassName('hide')[0];
+        carousel.classList.remove("hide")
+        carousel.classList.add("show")
     }
     return (
         <div className="travel-container">
@@ -188,7 +193,6 @@ const TravelCalculator = (props) => {
                         <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency} />
                         <select name='efficiency' onChange={measurement}>
                             <option value='mgallon'>m/gallon</option>
-                            <option value='lkm'>L/100km</option>
                         </select>
                         <select name='efficiency' id='fuel-type' onChange={getFuel} value={fuel} >
                             <option value='petrol'>Petrol</option>
@@ -265,6 +269,10 @@ const TravelCalculator = (props) => {
                     <input name='footprint' value={footprint} />
                     <label> Litres per Km</label>
                 </div>
+            </div>
+            <div className="carousel-div hide">
+                <h2 style={{textAlign: "center"}}>Offset your carbon footprint with these suggestions</h2>
+                <NewCarousel />
             </div>
             {/* <div>{distance}</div> */}
 

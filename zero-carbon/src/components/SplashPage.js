@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import Carousel from 'react-elastic-carousel'
 import TravelCalculator from './Modals/TravelCalculator';
 import RestaurantRanker from './Modals/RestaurantRanker';
+import NewCarousel from './Carousel';
+
 
 
 const customStyles = {
@@ -39,11 +40,6 @@ const SplashPage = () => {
         setModal('');
     }
 
-    const breakPoints = [
-        { width: 500, itemsToShow: 1 },
-        { width: 1000, itemsToShow: 3 },
-        { width: 1200, itemsToShow: 4 }
-    ]
 
     return (
         <div>
@@ -77,14 +73,9 @@ const SplashPage = () => {
                         <button className="splash-page-button" onClick={clickHandler} id="food"> <i id="food" class="fas fa-hamburger"></i><p id="food">Food Ranker</p></button>
                     </div>
                 </div>
-
+                <h2>There's still time to save the planet. Here's what you can do ...</h2>
                 <div className="carousel-div">
-                    <Carousel breakPoints={breakPoints}>
-                        <div>First</div>
-                        <div>Second</div>
-                        <div>Third</div>
-
-                    </Carousel>
+                    <NewCarousel />
                 </div>
             </div>
         </div >
