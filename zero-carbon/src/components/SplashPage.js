@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import Carousel from 'react-elastic-carousel'
 import TravelCalculator from './Modals/TravelCalculator';
 import RestaurantRanker from './Modals/RestaurantRanker';
+import Card from './Card';
+import {suggestions }from './data/Suggestions'
 
 const customStyles = {
     content: {
@@ -66,9 +68,9 @@ const SplashPage = () => {
 
                 <div className="carousel-div">
                     <Carousel breakPoints={breakPoints}>
-                        <div>First</div>
-                        <div>Second</div>
-                        <div>Third</div>
+                        {suggestions.map((suggestion) => (
+                            <Card suggestion={suggestion}/>
+                        ))}
 
                     </Carousel>
                 </div>
