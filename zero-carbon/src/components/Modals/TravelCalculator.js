@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 const dotenv = require("dotenv");
 const env = dotenv.config()
 
-const TravelCalculator = () => {
+const TravelCalculator = (props) => {
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
     const [searchValue, setSearchValue] = useState('');
@@ -13,7 +13,8 @@ const TravelCalculator = () => {
     const [emission, setEmission] = useState(2.3)
     const [year, setYear] = useState(2006);
     const [make, setMake] = useState("Audi");
-    const [models, setModels] = useState(null);
+    const [models, setModels] = useState([]);
+    const [model, setModel] = useState(null)
 
     useEffect(() => {
         async function getModel() {
@@ -27,15 +28,49 @@ const TravelCalculator = () => {
                 let newArray = Array.prototype.map.call(first, (function (node) {
                     return node
                 }))
-                let test = newArray.map(node => {
+                let models = newArray.map(node => {
                     return node.childNodes[0].innerHTML
                 })
-                console.log(test)
-                console.log(newArray[0].childNodes[0].innerHTML)
+                setModels(models)
+
             }
         }
         getModel();
-    })
+    }, [make])
+
+    useEffect(() => {
+        if (model) {
+            console.log(models)
+            async function getModel() {
+                const response = await fetch(`https://www.fueleconomy.gov/ws/rest/ympg/shared/vehicles?make=${make}&model=${model}`)
+                const responseData = await response.text()
+                if (!response.ok) {
+                    console.error(response)
+                } else {
+                    console.log(responseData)
+                    let data = new window.DOMParser().parseFromString(responseData, "text/xml")
+                    try {
+                        let first = data.getElementsByTagName("vehicles")[0].childNodes[0].childNodes[42].innerHTML
+                        setEfficiency(first)
+                    } catch (e) {
+                        console.error(e)
+                    }
+
+                    // let newArray = Array.prototype.map.call(first, (function (node) {
+                    //     return node
+                    // }))
+                    // console.log(newArray)
+                    // let models = newArray.map(node => {
+                    //     return node.childNodes[0].innerHTML
+                    // })
+                    // setModels(models)
+                    // console.log(newArray[0].childNodes[0].innerHTML)
+                }
+
+            }
+            getModel();
+        }
+    }, [model])
 
     const successfulLookup = position => {
         const { latitude, longitude } = position.coords;
@@ -123,27 +158,31 @@ const TravelCalculator = () => {
         setFoorprint(carbon.toFixed(2))
     }
     return (
-        <div>
-            <form onSubmit={searchBarFunction}>
-                <input type='text' placeholder="destination" onChange={(e) => setSearchValue(e.target.value)} />
-                <button type="submit">Search</button>
-            </form>
+        <div className="travel-container">
+            <button id="close-button" onClick={props.handleClose}>X</button>
+            <h1>Carbon Travel Calculator</h1>
+            <div className="step-1-div">
+                <div>
+                    <h3>Step 1</h3>
+                </div>
+                <form onSubmit={searchBarFunction}>
+                    <div className="search-bar-div">
+                        <input type='text' name="search" className="search-input" placeholder="🔍 Destination" onChange={(e) => setSearchValue(e.target.value)} />
+                        <button className="form-button" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
 
-            <div className='calculator'>
+            {/* <div className='calculator'> */}
+
+            <div className="step-2-div">
+                <h3>Step 2</h3>
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
                         <input name='distance' id='distance' type='number' value={distance} onChange={getDistance} />
                          Miles
-                    </div>
-                    {/* <div className='field'>
-                        <label for='vehicle'>Vehicle Type </label>
-                        <select id='vehicle' name='vehicle'>
-                            <option>Car type 1</option>
-                            <option>Car type 2</option>
-                            <option>Car type 3</option>
-                        </select>
-                    </div> */}
+                        </div>
                     <div className='field multi-field'>
                         <label for='efficiency'>Efficiency</label>
                         <input name='efficiency' type='number' onChange={getEfficiency} value={efficiency} />
@@ -158,7 +197,7 @@ const TravelCalculator = () => {
                             <option value='cpg'>CPG</option>
                         </select>
                     </div>
-                    <span>Or Search Vehicle Efficiency</span>
+                    <span className="travel-calculator-span">Or Search Vehicle Efficiency:</span>
                     <div className='field multi-field'>
                         <label for='year'>Year </label>
                         <select name='year' id='name' onChange={e => setYear(e.target.value)}>
@@ -207,28 +246,29 @@ const TravelCalculator = () => {
                             <option>Lotus</option>
                             <option>Maserati</option>
                             <option>Mazda</option>
-                            <option>Mecedes-Benz</option>
+                            <option>Mercedes-Benz</option>
                         </select>
                         <label for='model'>Model </label>
-                        <select name='model' id='model' >
-                            {/* {models ? Array.prototype.map.call(model.childNodes, (function(node){
-                                <option>{model}</option>
-                            }) : ""} */}
-                            <option>Model 1</option>
-                            <option>Model 2</option>
-                            <option>Model 3</option>
+                        <select name='model' id='model' onChange={e => setModel(e.target.value)}>
+                            {models.length > 0 ? models.map(model => {
+                                return <option>{model}</option>
+                            }) : ""}
                         </select>
                     </div>
+                    <button className="form-button" onClick={calculate_footprint}>Calculate Footprint</button>
                 </form>
-                <button onClick={calculate_footprint}>Calculate Footprint</button>
-                <div>
+            </div>
+            <div className="step-3-div">
+                <h3>Step 3</h3>
+                <div className="carbon-results">
                     <h3>Your Carbon footprint </h3>
                     <input name='footprint' value={footprint} />
                     <label> Litres per Km</label>
                 </div>
-                {/* <div>{distance}</div> */}
-
             </div>
+            {/* <div>{distance}</div> */}
+
+            {/* </div> */}
         </div>
     )
 }

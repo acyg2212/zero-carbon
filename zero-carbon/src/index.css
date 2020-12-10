@@ -1,14 +1,28 @@
-/* TODO Add site wide styles */
+/* header */
+.header-img{
+    height:100px
+}
+
+/* Splash Page */
 .introduction-div{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.about-header{
+    text-decoration: underline;
+    color: black;
+    text-shadow: 2px 2px 4px grey;
+    font-size: 25px;
+    margin-bottom:10px;
+}
+
 .carousel-div{
     position: fixed;
-    bottom:10px;
-    width:90%
+    bottom:50px;
+    width:90%;
+    margin-top:25px;
 }
 
 .food-modal{
@@ -26,5 +40,170 @@ h4{
     text-align: center;
 }
 
+h3{
+    font-family: sans-serif;
+}
 
+.header-div{
+    background-image: url('assets/carbon-footprint.jpg');
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+    /* margin-top: 100px; */
+    height: 250px;
+    background-position: center center;
+    background-size: cover;
+    justify-content: center;
+    margin-left:0px;
+    margin-right:0px;
+}
 
+.splash-page-h2-div{
+    text-decoration: underline;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
+.splash-page-h3-div{
+    text-transform: uppercase;
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 2px 4px black;
+}
+
+.splash-page-p{
+    font-family: sans-serif;
+    width:60%;
+    font-size: 20px;
+}
+
+.splash-page-button{
+    background-color: white;
+    height:60px;
+    width:150px;
+    font-size:20px;
+    border-radius:10px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+
+}
+
+.splash-page-button:hover{
+    background-color: grey;
+}
+
+.splash-page-button:focus{
+    outline: none;
+}
+
+.button-div{
+    display: flex;
+}
+
+/* travel calculator */
+
+.travel-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.search-bar-div{
+    display: flex;
+    flex-direction: column;
+    width:90%;
+    align-self: center;
+}
+
+form{
+    width:90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.step-1-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:90%
+}
+
+.step-2-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:90%;
+}
+
+.step-3-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:90%
+}
+
+.carbon-results{
+    width:75%
+}
+
+#close-button{
+    position: absolute;
+    right: 20px;
+    top:20px
+}
+
+.form-button{
+    align-self: center;
+    justify-self: center;
+    margin-top: 5px;
+}
+
+.search-input{
+    width:100%;
+   
+}
+
+label{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.travel-calculator-span{
+    padding: 5px;
+    font-weight: bold;
+}
+
+/* food ranker */
+.add-item-div{
+    display: flex;
+    align-items: center;
+}
+
+.add-button{
+    border:none;
+    background-color: white;
+    color: blue
+}
+
+.food-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addSelect{
+    display: flex;
+    flex-direction: column;
+}
