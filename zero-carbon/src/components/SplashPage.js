@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import Carousel from 'react-elastic-carousel'
 import TravelCalculator from './Modals/TravelCalculator';
 import RestaurantRanker from './Modals/RestaurantRanker';
-import Card from './Card';
-import {suggestions }from './data/Suggestions'
+import NewCarousel from './Carousel';
+
+
 
 const customStyles = {
     content: {
@@ -14,7 +14,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        width: '610px',
+        width: '60%',
         height: '600px',
         borderRadius: "30px",
         display: "flex",
@@ -30,7 +30,8 @@ const SplashPage = () => {
     const [show, setShow] = useState(false)
 
     const clickHandler = (e) => {
-        setModal(e.target.value)
+
+        setModal(e.target.id)
         setShow("true")
     }
 
@@ -39,11 +40,6 @@ const SplashPage = () => {
         setModal('');
     }
 
-    const breakPoints = [
-        { width: 500, itemsToShow: 1 },
-        { width: 1000, itemsToShow: 3 },
-        { width: 1200, itemsToShow: 4 }
-    ]
 
     return (
         <div>
@@ -52,30 +48,37 @@ const SplashPage = () => {
                 onRequestClose={handleClose}
                 style={customStyles}
                 contentLabel='Modal'>
-                {modal === 'restaurant' ? <RestaurantRanker /> : <TravelCalculator />}
+                {modal === 'food' ? <RestaurantRanker handleClose={handleClose} /> : <TravelCalculator handleClose={handleClose} />}
             </Modal>
             <div className="introduction-div">
-                <h2>Help Our Planet</h2>
-                <h3>About Zero-Carbon</h3>
-                <p>We are a couple of environmentally concious individuals that had
+                <div className="header-div">
+                    <h2 className="splash-page-h2-div">Help Our Planet</h2>
+                    <h3 className="splash-page-h3-div">How big of a footprint are you leaving behind?</h3>
+                </div>
+                <h3 className="about-header">About Zero Carbon</h3>
+                <p className="splash-page-p">Climate change can be overwhelming. The science is complex,
+                and when it comes to future impacts, there are still a lot
+                of unknowns. While real solutions will require action on a
+                global scale, there are choices you can make in your day-to-day
+                    life to lessen your personal impact on the environment.</p>
+                <p className="splash-page-p">We are a couple of environmentally concious individuals that had
                 no idea where to begin. We created this application so you can see what
                 your carbon footprint is and things you can do to counter your own footprint.
             </p>
                 <div className="button-div">
-                    <button onClick={clickHandler} value="travel">Travel Calculator</button>
-                    <button onClick={clickHandler} value="restaurant">Restaurant Ranker</button>
+                    <div>
+                        <button className="splash-page-button" onClick={clickHandler} id="travel"> <i class="fas fa-smog"></i> <p>Travel Calculator</p></button>
+                    </div>
+                    <div>
+                        <button className="splash-page-button" onClick={clickHandler} id="food"> <i id="food" class="fas fa-hamburger"></i><p id="food">Food Ranker</p></button>
+                    </div>
                 </div>
-
+                <h2>There's still time to save the planet. Here's what you can do ...</h2>
                 <div className="carousel-div">
-                    <Carousel breakPoints={breakPoints}>
-                        {suggestions.map((suggestion) => (
-                            <Card suggestion={suggestion}/>
-                        ))}
-
-                    </Carousel>
+                    <NewCarousel />
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 }
