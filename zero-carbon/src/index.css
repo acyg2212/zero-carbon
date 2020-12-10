@@ -1,7 +1,8 @@
 /* header */
 .header-img{
-    height:100px
+    height:100px;
 }
+
 
 /* Splash Page */
 .introduction-div{
@@ -133,6 +134,11 @@ form{
     flex-direction: column;
 }
 
+.travel-steps{
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
 .step-1-div{
     display: flex;
     justify-content: space-between;
@@ -152,6 +158,10 @@ form{
     justify-content: space-between;
     align-items: center;
     width:90%
+}
+
+.travel-calculator-instructions{
+    font-size:15px;
 }
 
 .carbon-results{
@@ -249,4 +259,41 @@ a {
 
 .hide {
     display: none;
+}
+
+/* footer */
+footer{
+    background-color: green;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+
+}
+
+.contact-us-header{
+    margin-bottom:10px;
+    text-decoration: underline;
+    font-family: sans-serif;
+    color:white;
+    padding-top:0;
+}
+
+
+.contact-us-single-line{
+    display: flex;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.constact-us-div{
+    margin-left:25px;
+    padding-bottom: 25px;
+    padding-top:25px;
+    margin-top:10px
+}
+
+.contact-us-link{
+    color:white;
+    margin-left:2px;
+    margin-right:2px;
 }

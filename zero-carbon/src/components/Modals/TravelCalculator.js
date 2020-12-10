@@ -168,7 +168,8 @@ const TravelCalculator = (props) => {
             <h1>Carbon Travel Calculator</h1>
             <div className="step-1-div">
                 <div>
-                    <h3>Step 1</h3>
+                    <h3 className="travel-steps">Step 1</h3>
+                    <p className="travel-calculator-instructions">(either search or enter travel distance)</p>
                 </div>
                 <form onSubmit={searchBarFunction}>
                     <div className="search-bar-div">
@@ -181,7 +182,10 @@ const TravelCalculator = (props) => {
             {/* <div className='calculator'> */}
 
             <div className="step-2-div">
-                <h3>Step 2</h3>
+                <div>
+                    <h3 className="travel-steps">Step 2</h3>
+                    <p className="travel-calculator-instructions">(enter fuel efficiency or search for your car)</p>
+                </div>
                 <form>
                     <div className='field'>
                         <label for='distance'>Trip Distance </label>
@@ -263,7 +267,7 @@ const TravelCalculator = (props) => {
                 </form>
             </div>
             <div className="step-3-div">
-                <h3>Step 3</h3>
+                <h3 className="travel-steps">Step 3</h3>
                 <div className="carbon-results">
                     <h3>Your Carbon footprint </h3>
                     <input name='footprint' value={footprint} />
@@ -271,7 +275,7 @@ const TravelCalculator = (props) => {
                 </div>
             </div>
             <div className="carousel-div hide">
-                <h2 style={{textAlign: "center"}}>Offset your carbon footprint with these suggestions</h2>
+                <h2 style={{ textAlign: "center" }}>Offset your carbon footprint with these suggestions</h2>
                 <NewCarousel />
             </div>
             {/* <div>{distance}</div> */}
