@@ -179,7 +179,7 @@ const TravelCalculator = (props) => {
 
             {/* <div className='calculator'> */}
 
-            <div >
+            <div className="form-container">
                 <form>
                     <div className="step-1-div">
                         <div className="step-div">
@@ -212,7 +212,7 @@ const TravelCalculator = (props) => {
                                     <option value='cpg'>CPG</option>
                                 </select>
                             </div>
-                            <span className="travel-calculator-span">Or Search Vehicle Efficiency:</span>
+                            <div className="travel-calculator-span">Or Search Vehicle Efficiency:</div>
                             <div className='field multi-field three-field'>
                                 <label for='year'>Year </label>
                                 <select name='year' id='name' onChange={e => setYear(e.target.value)}>
@@ -276,12 +276,16 @@ const TravelCalculator = (props) => {
                     <button className="form-button" onClick={calculate_footprint}>Calculate Footprint</button>
                 </form>
 
-                <div className="step-3-div">
-                    <h3 className="travel-steps">Step 3</h3>
-                    <div className="carbon-results">
-                        <h3>Your Carbon footprint </h3>
-                        <input name='footprint' value={footprint} />
-                        <label> Litres per Km</label>
+                <div className="div3-container">
+                    <div className="step-3-div">
+                        <div className="step-div">
+                            <h3 className="travel-steps">Step 3</h3>
+                        </div>
+                        <div className="carbon-footprint-container">
+                            <h3>Your Carbon footprint </h3>
+                            <input name='footprint' value={footprint} />
+                            <label> Litres per Km</label>
+                        </div>
                     </div>
                 </div>
             </div>
